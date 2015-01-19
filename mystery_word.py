@@ -4,12 +4,12 @@ import random
 guesses = 8
 
 
-def mystery_game_process(playing_again=False):
+def mystery_game_process(first_time=True):
     """This function triggers the mystery_game. A user is presented
     with a random word. The user is then shown the word with blank spaces
     and told how many chars there are. Then the user must begin guessing."""
 
-    if not playing_again:
+    if first_time:
         help_docs()
 
     word_answer = get_random_word(user_difficulty_choice())
@@ -122,11 +122,11 @@ def guess_in_answer(answer_string, guessed_char_list, counter):
         return play_again_request()
 
     else:
-        print("You got a letter!\n  {}      {}"
+        print("You got a letter!\n {}      {}"
               " guesses left.".format(partial_answer_string,
-                                                  counter))
+                                      counter))
+        return guessed_char_list
 
-    return guessed_char_list
 
 def incorrect_guess(counter, a_guess, answer_string):
     """This function denotes the process a user goes through if they
@@ -135,8 +135,7 @@ def incorrect_guess(counter, a_guess, answer_string):
     alphabet = 'abcdefghijklmnopqrstuvwxyz'
     partial_answer_string = fancy_view_word(answer_string)
 
-
-    if a_guess in alphabet and counter > 0:
+    if a_guess in alphabet:
         counter -= 1
         if counter == 0:
             print("You are out of guesses and therefore lose.")
@@ -175,7 +174,7 @@ def play_again_request():
     play_again_request = input("Would you like "
                                "to play again? (y/n) ")
     if play_again_request.lower() == 'y':
-        return mystery_game_process(True)
+        return mystery_game_process(False)
     else:
         return quit()
 
@@ -193,9 +192,8 @@ def help_docs():
     Type "help" for these instructions again.
     Type "view" to see to see the word so far.
     Type "quit" to exit.
-          """.format(guesses))
-    print(('=' * 60))
-    print(('=' * 60))
+    {}
+    """.format(guesses, ('=' * 52),))
 
     return True
 
