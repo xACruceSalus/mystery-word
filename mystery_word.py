@@ -197,4 +197,5 @@ def help_docs():
 
     return True
 
-# mystery_game_process()
+if __name__ == '__main__':
+    mystery_game_process()
